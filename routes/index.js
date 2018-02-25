@@ -16,6 +16,10 @@ router.get('/displaycards', function(req, res){
     });
 });
 
+router.get('/addingcardpage', function(req, res){
+    res.render('/addcardpage');
+});
+
 app.get('/processimage', (req, res) =>{
   // **********************************************
     // *** Update or verify the following values. ***
@@ -46,12 +50,7 @@ app.get('/processimage', (req, res) =>{
     var sourceImageUrl = "https://timedotcom.files.wordpress.com/2017/12/wendy-walsh-person-of-year-2017-time-magazine-2.jpg?quality=10";
     //document.querySelector("#sourceImage").src = sourceImageUrl;
   
-    var params = {
-      "visualFeatures": "Categories,Description,Color",
-      "details": "",
-      "language": "en",
-  };
-  
+   
   var data = { method: "POST",
       headers: {
           "Content-Type": "application/json",
