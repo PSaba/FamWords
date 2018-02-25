@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+		<script src="assets/content-tools.min.js"></script>
+		<script src="assets/editor.js"></script>
+		
+	<meta charset="utf-8"/>
+	<title>Admin Dashboard</title>
+	<link rel='stylesheet' href='/stylesheets/style.css' />
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+</head>
+
+<body>
+	<!-- <nav>
+		<ul class="navigation"> 
+		  <li class="navigation"><a class="navigation" href="cms.html">Home</a></li>
+		  <li class="navigation"><a class="navigation" href="userEdit.html">Edit Login </a></li>
+		  <li class="navigation"><a class="navigation" href="adminDash.html">Dashboard</a></li>
+		</ul>
+	</nav> -->
+	<%- include adminnav %>
+	<header>
+		<h1>Dashboard</h1>
+	</header>
+	<% if(typeof error !== 'undefined'){ %>
+		<div>
+			<h2><%= error %></h2>
+		</div>
+	<% } %>
+	<h2> Table of Pages </h2>
+	<h1>
+			<form method = "GET" action="/admin/editstuff">
+				Edit Information
+				<input type="Submit" value="Submit">
+			</form>
+			Add Page <input type="button" value="Add Page" onclick="openform()"id="openAdder" />
+	</h1>
+	<table name="postsallofthem">
+		<tr>
+			<th>ID</th>
+			<th>Title</th>
+			<th>Options</th>
+	<% pages.forEach(function(page){ %>
+		</tr>
+			<tr>
+				<th><%=page._id%></th>
+				<th> <a href = "<%=page.url%>"> <%=page.title%></th>
+				<th>
+					<form method = "POST" action="/admin/deletingpage/<%=page._id%>"><input type="submit" value="Remove"/></form>
+				<!--	<input type="button" value="Remove" class="button-delete" data-page-id="<%=page._id%>"/> -->
+					<form method = "GET" action="/<%=page.url%>?"> <input type="submit" value="Edit"/></form>
+					<%if (page.visible){%>
+						<input type="button" value="Visible/NotVisible" class="btn-vis" data-page-id="<%=page._id%>"/>
+					<%} else {%>
+						<input type="button" value="Visible/NotVisible" class="btn-vis button-visible" data-page-id="<%=page._id%>"/>
+					<% };%>
+				
+				</th>
+			</tr>
+		<% });%>
+	</table>
+<div class="modal">
+<div id="addingpage" class="some-modal">
+	<h1>Creating New Page</h1> <input type="button" value="Cancel" onclick="openform()"/>
+    <form method = "POST" action="/auth/newPage">
+        <h2><input placeholder = "Title of the Page" type="text" name="title"> </h2>
+
+        <p class = "contentEdit">
+            <br><textarea class="contain-full" rows = "3" type="text" name="content">Temp Content</textarea>
+        <!--	<br>Upload Media (.png, .svg, .mp3, .mp4) 
+            <input type="button" value="Upload"/> -->
+		</p>
+		<h2>URL<input type="text" name="url" placeholder="/something/somethingelse"> </h2>
+        <br><input type="Submit" class="add-page" value="Submit"/>
+	</form>
+</div>
+	<div class="modal-background">
+</div>
+</div>
+<script>
+	function openform(){
+		$(".modal").toggle();
+	}
+	$(function(){
+		openform();
+		$(".modal").on('click', ".modal-background", function(event){
+			openform();
+		})
+		$('.btn-vis').on('click', function(e){
+			var button = $(this);
+			var pageId = $(this).attr('data-page-id');
+			$.ajax({
+				Method: 'GET',
+				url: '/admin/toggleVisibility/'+ pageId,
+				data: pageId
+			}).done(function(response){
+				button.toggleClass("button-visible");
+			});
+		});	
+
+		$('.button-delete').on('click', function(e){
+			var button = $(this);
+			var pageId = $(this).attr('data-page-id');
+			$.ajax({
+				Method: 'Delete',
+				url: `admin/deletingpage/` + pageId
+			}).done(function(response){
+				button.closest('tr').remove();
+			});
+		});	
+		var form1 = $('#addingpage');
+		$(form1).submit(function(Event){
+			var formDate = $(this).serialize();
+			var pageId = $(this);
+			$.ajax({
+				Method: 'POST',
+				url: '/auth/newpage',
+				data: FormData
+			})
+		})
+	})
+	var quill = new Quill('#editor', {
+	});
+</script>
+</body>
+</html>		
