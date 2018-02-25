@@ -10,6 +10,10 @@ router.get('/', function(req, res){
   res.render('/home_page');
 });
 
+router.get('/signupdisplay', function(req, res){
+  res.render('/sign_up');
+});
+
 router.get('/login', function(req, res){
   userModel.findOne({ email: req.body.username, password: req.body.password}, function(err, user) {
     if (!user) {
@@ -25,7 +29,7 @@ router.get('/login', function(req, res){
 
 router.get('/signup', function(req, res){
   var newUser = new userModel({
-    email: req.body.email,
+    email: req.body.username,
     password: req.body.password,
     cards: new Array()
   });
