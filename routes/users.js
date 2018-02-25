@@ -14,7 +14,7 @@ router.get('/signupdisplay', function(req, res){
   res.render('/sign_up');
 });
 
-router.get('/login', function(req, res){
+router.post('/login', function(req, res){
   userModel.findOne({ email: req.body.username, password: req.body.password}, function(err, user) {
     if (!user) {
       res.render('adminAuth', { error: 'Invalid email or password.' });
