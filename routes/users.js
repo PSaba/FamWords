@@ -38,4 +38,5 @@ router.get('/signup', function(req, res){
     res.redirect('/admin');
   });
 });
+
 module.exports = router;
