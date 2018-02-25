@@ -59,10 +59,10 @@ app.get('/processimage', (req, res) =>{
       },
       body: '{"url": ' + '"' + sourceImageUrl + '"}'
     }
-  console.log(uriBase + "?" + querystring.stringify(params));
+  //console.log(uriBase + "?" + querystring.stringify(params));
   fetch(uriBase + "?" + querystring.stringify(params), data)
   .then(function(res){
-      console.log(res);
+     // console.log(res);
       return res.json();
   })
   .then(function(res){
@@ -74,7 +74,7 @@ app.get('/processimage', (req, res) =>{
         newFlash.picture.contentType = 'jpg';
         newFlash.save(function(err, products) {
         if (err) return console.error(err);
-        console.log(products);
+      //  console.log(products);
         });
   });
   res.redirect('/admin');
