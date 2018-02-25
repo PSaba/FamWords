@@ -6,11 +6,12 @@ var io = require('../io');
 
 /* GET users listing. */
 router.get('/', function(req, res){
-  //gyul just do something pretty
+  //gyul do this
+  res.render('/home_page');
 });
 
 router.get('/login', function(req, res){
-  userModel.findOne({ email: req.body.email, password: req.body.password}, function(err, user) {
+  userModel.findOne({ email: req.body.username, password: req.body.password}, function(err, user) {
     if (!user) {
       res.render('adminAuth', { error: 'Invalid email or password.' });
     } else {

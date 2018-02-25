@@ -6,8 +6,7 @@ var io = require('../io');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  //gyul fix this
-  res.render('index', { title: 'Express' });
+  res.render('/home_page');
 });
 
 router.get('/displaycards', function(req, res){
@@ -20,7 +19,7 @@ router.get('/addingcardpage', function(req, res){
     res.render('/addcardpage');
 });
 
-app.get('/processimage', (req, res) =>{
+app.get('/processimage/:url', (req, res) =>{
   // **********************************************
     // *** Update or verify the following values. ***
     // **********************************************
@@ -47,7 +46,7 @@ app.get('/processimage', (req, res) =>{
   
     // Display the image.
     //var sourceImageUrl = document.getElementById("inputImage").value;
-    var sourceImageUrl = "https://timedotcom.files.wordpress.com/2017/12/wendy-walsh-person-of-year-2017-time-magazine-2.jpg?quality=10";
+    var sourceImageUrl = req.params.url;
     //document.querySelector("#sourceImage").src = sourceImageUrl;
   
    

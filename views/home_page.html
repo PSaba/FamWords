@@ -33,11 +33,11 @@
          
 
         <div class="col-md-6" style="text-align: center; vertical-align; padding-top:150px ">
-            <form class="form">
-			<input type="text" placeholder="Username">
-			<input type="password" placeholder="Password">
+            <form class="form" method="POST" action="/login">
+			<input type="text" value="username" placeholder="Username">
+			<input type="password" value="password" placeholder="Password">
 			<button type="submit" id="login-button">Login</button>
-            <button class="btn btn-md btn-basic btn-block" type="button" onclick="window.open('sign_up.html')"style="padding-top: 30px; text-size: 20px;">Don't have an account? Sign Up</button> 
+            <button type="submit" value="Submit" class="btn btn-md btn-basic btn-block" type="button" onclick="window.open('sign_up.html')"style="padding-top: 30px; text-size: 20px;">Don't have an account? Sign Up</button> 
 
             
 		</form>
